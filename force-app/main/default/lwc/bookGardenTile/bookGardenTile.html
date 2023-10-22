@@ -1,0 +1,21 @@
+<template>
+    <div class={className} onclick={handleBookSelected}>
+      <img
+          src={book.Image_Source__c}
+          class="book-cover"
+          alt="Book Cover picture"
+      />
+      <div class="book-details">
+          <p class="title">{book.Name}</p>
+          <p class="author">{book.Author__r.Name}</p>
+          <p class="nop">{book.Number_of_Pages__c} pages</p>
+          <div class="likes">
+            <p class="like-str">👍 {likes}</p>
+            <p class="like-str">👎 {dislikes}</p>
+          </div>
+          <template if:true={book.Archived__c}>
+            <p class="archived-text">(ARCHIVED)</p>
+          </template>
+      </div>
+    </div>
+  </template>
