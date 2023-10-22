@@ -1,9 +1,0 @@
-<template>
-  <div class="list-container">
-    <div class="grid-container">
-      <template for:each={books} for:item="book">
-        <c-book-garden-tile onbookselected={handleBookSelected} selected-id={selectedId} key={book.Id} book={book}></c-book-garden-tile>
-      </template>
-    </div>
-  </div>
-</template>
