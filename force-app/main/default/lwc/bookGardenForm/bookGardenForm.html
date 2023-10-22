@@ -1,0 +1,108 @@
+<template>
+    <div class="form-wrapper">
+        <template if:true={createOperationBoolean}>
+            <lightning-tabset>
+                <lightning-tab label="Author" value="createAuthor">
+                    <lightning-input name="nameStr" type="text" label="Name" value={nameStr} onchange={handleInputChange} required></lightning-input>
+                    <lightning-input name="fromStr" type="text" label="From" value={fromStr} onchange={handleInputChange}></lightning-input>
+                    <lightning-input name="bornInStr" type="date" label="Born In" value={bornInStr} onchange={handleInputChange}></lightning-input>
+                    <lightning-input name="diedInStr" type="date" label="Died In" value={diedInStr} onchange={handleInputChange}></lightning-input>
+                    <lightning-textarea 
+                        name="lifeStr" 
+                        value={lifeStr} 
+                        label="Life" 
+                        maxlength="32768" message-when-too-long="A maximum of 32,768 characters are allowed." 
+                        onchange={handleInputChange}>
+                    </lightning-textarea>
+                    <lightning-input name="imageSourceAuthor" type="url" label="Image Source" value={imageSourceAuthor} onchange={handleInputChange}></lightning-input>
+                    <div class="button-margin">
+                        <lightning-button variant="brand" label="Create Author" title="Create Author" onclick={handleCreateAuthor} disabled={createAuthorDisabled} class="slds-var-m-top_small"></lightning-button>
+                    </div>
+                </lightning-tab>
+                <lightning-tab label="Book" value="createBook">
+                    <template if:true={authorCreated}>
+                        <p>Your author was created, you can add a book to your author by creating it here now!</p>
+                    </template>
+                    <lightning-input name="bookName" type="text" label="Book Name" value={bookName} onchange={handleInputChange} required></lightning-input>
+                    <lightning-input name="authorName" type="text" label="Author Name" value={authorName} onchange={handleInputChange} required></lightning-input>
+                    <lightning-dual-listbox name="genres"
+                                            label="Genre"
+                                            source-label="Available"
+                                            selected-label="Selected"
+                                            field-level-help="Select genres"
+                                            options={genres}
+                                            onchange={handleInputChange}></lightning-dual-listbox>
+                    <lightning-input name="numberOfPages" type="number" label="Number of Pages" value={numberOfPages} onchange={handleInputChange} required></lightning-input>
+                    <lightning-textarea 
+                        name="review" 
+                        value={review} 
+                        label="Review" 
+                        maxlength="32768" message-when-too-long="A maximum of 32,768 characters are allowed." 
+                        onchange={handleInputChange}>
+                    </lightning-textarea>
+                    <lightning-textarea 
+                        name="summary" 
+                        value={summary} 
+                        label="Summary" 
+                        maxlength="32768" message-when-too-long="A maximum of 32,768 characters are allowed." 
+                        onchange={handleInputChange}>
+                    </lightning-textarea>
+                    <lightning-input name="imageSource" type="url" label="Image Source" value={imageSource} onchange={handleInputChange}></lightning-input>
+                    <div class="button-margin">
+                        <lightning-button variant="brand" label="Create Book" title="Create Book" onclick={handleCreateBook} disabled={createBookDisabled} class="slds-var-m-top_small"></lightning-button>
+                    </div>
+                </lightning-tab>
+            </lightning-tabset>
+        </template>
+        <template if:false={createOperationBoolean}>
+            <template if:true={authorToEdit}>
+                <lightning-input name="nameStr" type="text" label="Name" value={nameStr} onchange={handleInputChange} required></lightning-input>
+                <lightning-input name="fromStr" type="text" label="From" value={fromStr} onchange={handleInputChange}></lightning-input>
+                <lightning-input name="bornInStr" type="date" label="Born In" value={bornInStr} onchange={handleInputChange}></lightning-input>
+                <lightning-input name="diedInStr" type="date" label="Died In" value={diedInStr} onchange={handleInputChange}></lightning-input>
+                <lightning-textarea 
+                    name="lifeStr" 
+                    value={lifeStr} 
+                    label="Life" 
+                    maxlength="32768" message-when-too-long="A maximum of 32,768 characters are allowed." 
+                    onchange={handleInputChange}>
+                </lightning-textarea>
+                <lightning-input name="imageSourceAuthor" type="url" label="Image Source" value={imageSourceAuthor} onchange={handleInputChange}></lightning-input>
+                <div class="button-margin">
+                    <lightning-button variant="brand" label="Edit Author" title="Edit Author" onclick={handleEditAuthor} disabled={createAuthorDisabled} class="slds-var-m-top_small"></lightning-button>
+                </div>
+            </template>
+            <template if:true={bookToEdit}>
+                <lightning-input name="bookName" type="text" label="Book Name" value={bookName} onchange={handleInputChange} required></lightning-input>
+                <lightning-input name="authorName" type="text" label="Author Name" value={authorName} onchange={handleInputChange} required></lightning-input>
+                <lightning-dual-listbox name="genres"
+                                        label="Genre"
+                                        value={genre}
+                                        source-label="Available"
+                                        selected-label="Selected"
+                                        field-level-help="Select genres"
+                                        options={genres}
+                                        onchange={handleInputChange}></lightning-dual-listbox>
+                <lightning-input name="numberOfPages" type="number" label="Number of Pages" value={numberOfPages} onchange={handleInputChange} required></lightning-input>
+                <lightning-textarea 
+                    name="review" 
+                    value={review} 
+                    label="Review" 
+                    maxlength="32768" message-when-too-long="A maximum of 32,768 characters are allowed." 
+                    onchange={handleInputChange}>
+                </lightning-textarea>
+                <lightning-textarea 
+                    name="summary" 
+                    value={summary} 
+                    label="Summary" 
+                    maxlength="32768" message-when-too-long="A maximum of 32,768 characters are allowed." 
+                    onchange={handleInputChange}>
+                </lightning-textarea>
+                <lightning-input name="imageSource" type="url" label="Image Source" value={imageSource} onchange={handleInputChange}></lightning-input>
+                <div class="button-margin">
+                    <lightning-button variant="brand" label="Edit Book" title="Edit Book" onclick={handleEditBook} disabled={createBookDisabled} class="slds-var-m-top_small"></lightning-button>
+                </div>
+            </template>
+        </template>
+    </div>
+</template>

@@ -1,0 +1,64 @@
+<template>
+  <template if:true={isLoading}>
+    <lightning-spinner alternative-text="Loading" size="Large"></lightning-spinner>
+  </template>
+  <div class="overview-wrapper">
+    <lightning-card title="Filter the Books">
+      <div class="filter-wrapper">
+        <lightning-input
+          label="Book Name"
+          type="text"
+          onchange={handleBookNameChange}
+        ></lightning-input>
+        <lightning-input
+          label="Author Name"
+          type="text"
+          onchange={handleAuthorNameChange}
+        ></lightning-input>
+        <lightning-slider
+          label="Max Pages"
+          step="1"
+          min="0"
+          max={biggestPageNum}
+          value={maxPageNum}
+          onchange={handleMaxPageNumChange}
+        ></lightning-slider>
+        <lightning-combobox
+            name="Genre"
+            label="Genre"
+            value={genre}
+            placeholder="Select a Genre"
+            options={genreOptions}
+            onchange={handleGenreChange}>
+        </lightning-combobox>
+        <div class="button-margin">
+          <lightning-button variant="brand" label="Search Books" title="Search Books" onclick={handleSearch}></lightning-button>
+        </div>
+      </div>
+    </lightning-card>
+    <lightning-card title="Books">
+      <lightning-tabset active-tab-value="search-tab">
+        <lightning-tab label="Search Books" value="search-tab">
+          <div class="list-wrapper">
+            <template if:true={booksToShow}>
+              <c-book-garden-list onbookselected={handleBookSelected} onsearch={handleSearch} books={booksToShow}></c-book-garden-list>
+            </template>
+            <div class="pagination-buttons">
+              <lightning-button variant="Neutral" label="<" title="Go to previous page" onclick={handlePreviousPage} disabled={disablePreviousPage} class="slds-var-m-left_x-small"></lightning-button>
+              <lightning-button variant="Neutral" label=">" title="Go to next page" onclick={handleNextPage} disabled={disableNextPage}></lightning-button>
+            </div>
+          </div>
+        </lightning-tab>
+        <lightning-tab label="Create" value="create-tab">
+          <c-book-garden-form operation="create" onbookcreated={handleBookCreated}></c-book-garden-form>
+        </lightning-tab>
+        <lightning-tab label="Edit" value="edit-tab">
+          <c-book-garden-form operation="edit" book-to-edit={bookToEdit} author-to-edit={authorToEdit} onbookedited={handleBookEdited} onauthoredited={handleAuthorEdited}></c-book-garden-form>
+        </lightning-tab>
+      </lightning-tabset>
+    </lightning-card>
+    <div class="selected-book-wrapper">
+      <c-book-garden-selected book={selectedBook} onreactedtobook={handleReactedToBook} oncommentedonbook={handleCommentedOnBook} oneditbook={handleEditBook} oneditauthor={handleEditAuthor} onarchivebook={handleArchiveBook} ondeletebook={handleDeleteBook}></c-book-garden-selected>
+    </div>
+  </div>
+</template>
